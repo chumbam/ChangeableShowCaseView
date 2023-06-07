@@ -79,7 +79,7 @@ class BubbleShowCase(builder: BubbleShowCaseBuilder){
 
     //References
     private var backgroundDimLayout: RelativeLayout? = null
-    private var bubbleMessageViewBuilder: BubbleMessageView.Builder? = null
+    private var bubbleMessageViewBuilder: BubbleMessageViewV2.Builder? = null
 
     fun show(){
         if(mShowOnce != null){
@@ -167,8 +167,8 @@ class BubbleShowCase(builder: BubbleShowCaseBuilder){
         backgroundDimLayout?.setOnClickListener { mBubbleShowCaseListener?.onBackgroundDimClick(this) }
     }
 
-    private fun getBubbleMessageViewBuilder(): BubbleMessageView.Builder{
-        return BubbleMessageView.Builder()
+    private fun getBubbleMessageViewBuilder(): BubbleMessageViewV2.Builder{
+        return BubbleMessageViewV2.Builder()
                 .from(mActivity.get()!!)
                 .arrowPosition(mArrowPositionList)
                 .backgroundColor(mBackgroundColor)
@@ -236,7 +236,7 @@ class BubbleShowCase(builder: BubbleShowCaseBuilder){
     /**
      * This function creates the BubbleMessageView depending the position of the target and the desired arrow position. This new view is also set on the layout passed by param
      */
-    private fun addBubbleMessageViewDependingOnTargetView(targetView: View?, bubbleMessageViewBuilder: BubbleMessageView.Builder, backgroundDimLayout: RelativeLayout?) {
+    private fun addBubbleMessageViewDependingOnTargetView(targetView: View?, bubbleMessageViewBuilder: BubbleMessageViewV2.Builder, backgroundDimLayout: RelativeLayout?) {
         if(targetView==null) return
         val showCaseParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 
@@ -326,10 +326,10 @@ class BubbleShowCase(builder: BubbleShowCaseBuilder){
     /**
      * This function creates a BubbleMessageView and it is set on the center of the layout passed by param
      */
-    private fun addBubbleMessageViewOnScreenCenter(bubbleMessageViewBuilder: BubbleMessageView.Builder, backgroundDimLayout: RelativeLayout?) {
+    private fun addBubbleMessageViewOnScreenCenter(bubbleMessageViewBuilder: BubbleMessageViewV2.Builder, backgroundDimLayout: RelativeLayout?) {
         val showCaseParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         showCaseParams.addRule(RelativeLayout. CENTER_VERTICAL)
-        val bubbleMessageView: BubbleMessageView = bubbleMessageViewBuilder.build()
+        val bubbleMessageView: BubbleMessageViewV2 = bubbleMessageViewBuilder.build()
         bubbleMessageView.id = createViewId()
         if(isTablet()) showCaseParams.setMargins(
                 if (isTablet()) getScreenWidth(mActivity.get()!!)/2 - ScreenUtils.dpToPx(

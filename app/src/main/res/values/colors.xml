@@ -3,4 +3,97 @@
     <color name="transparent_grey">#77000000</color>
     <color name="blue_default">#3F51B5</color>
     <color name="white">#FFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="green_14E0AE">#14E0AE</color>
+    <color name="dark_green_003829">#003829</color>
+    <color name="white_E5E3E3">#E5E3E3</color>
+    <color name="gray_BFC9C2">#BFC9C2</color>
+    <color name="black">#FF000000</color>
+    <color name="black_1C1B1F">#1C1B1F</color>
+    <color name="background_black">#0F0F0E</color>
+    <color name="dark_blue_334673">#334673</color>
+    <color name="light_gray_D9D9D6">#D9D9D6</color>
+    <color name="light_gray_939293">#939293</color>
+    <color name="light_gray_767579">#767579</color>
+    <color name="light_gray_A0A0A0">#A0A0A0</color>
+    <color name="light_blue_20C6EB">#20C6EB</color>
+    <color name="light_blue_3FD7FC">#3FD7FC</color>
+    <color name="pink_FCADC0">#FCADC0</color>
+    <color name="pink_FFB4AB">#FFB4AB</color>
+    <color name="dark_gray_3A393D">#3A393D</color>
+    <color name="dark_gray_383838">#383838</color>
+    <color name="dark_1A1A1A">#1A1A1A</color>
+    <color name="dark_1F1F1F">#1F1F1F</color>
+    <color name="black_161519">#161519</color>
+    <color name="light_green_C3F1A1">#C3F1A1</color>
+    <color name="gray_CAC4D0">#CAC4D0</color>
+    <color name="black_0C0B0F">#0C0B0F</color>
+    <color name="gray_3A383E">#3A383E</color>
+    <color name="gray_646464">#646464</color>
+    <color name="light_blue_B7EDEF">#B7EDEF</color>
+    <color name="blue_004E5E">#004E5E</color>
+    <color name="gray_CECDCE">#CECDCE</color>
+    <color name="gray_2A2B2B">#2A2B2B</color>
+    <color name="green_7BFF1A">#7BFF1A</color>
+    <color name="green_01A47E">#01A47E</color>
+    <color name="red_C02E2E">#C02E2E</color>
+    <color name="red_FF5449">#FF5449</color>
+    <color name="yellow_FFC700">#FFC700</color>
+    <color name="violet_D0BCFF">#D0BCFF</color>
+    <color name="button_stroke_color">#89938C</color>
+    <color name="primary_95">#BBFFE3</color>
+
+    //Theme Material3 Color
+    <color name="colorPrimary">#14E0AE</color>
+    <color name="colorOnPrimary">#003829</color>
+    <color name="colorPrimaryContainer">#00513D</color>
+    <color name="colorOnPrimaryContainer">#4CFEC9</color>
+
+    <color name="inversePrimary">#006C52</color>
+    <color name="primaryFixed">#4CFEC9</color>
+    <color name="primaryFixedDim">#14E0AE</color>
+    <color name="onPrimaryFixed">#002117</color>
+    <color name="onPrimaryFixedVariant">#00513D</color>
+
+    <color name="colorSecondary">#3FD7FC</color>
+    <color name="colorOnSecondary">#003642</color>
+    <color name="colorSecondaryContainer">#004E5E</color>
+    <color name="colorOnSecondaryContainer">#B2EBFF</color>
+    <color name="colorSecondaryFixed">#B2EBFF</color>
+    <color name="colorSecondaryFixedDim">#3FD7FC</color>
+    <color name="colorOnSecondaryFixed">#001F27</color>
+    <color name="colorOnSecondaryFixedVariant">#3FD7FC</color>
+
+    <color name="colorTertiary">#A6CCE1</color>
+    <color name="colorOnTertiary">#0C3445</color>
+    <color name="colorTertiaryContainer">#264B5C</color>
+    <color name="colorOnTertiaryContainer">#C3E8FD</color>
+    <color name="colorTertiaryFixed">#C3E8FD</color>
+    <color name="colorTertiaryFixedDim">#A6CCE1</color>
+    <color name="colorOnTertiaryFixed">#011E2B</color>
+    <color name="colorOnTertiaryFixedVariant">#264B5C</color>
+
+    <color name="colorError">#FFB4AB</color>
+    <color name="colorOnError">#690005</color>
+    <color name="colorErrorContainer">#930009</color>
+    <color name="colorOnErrorContainer">#FFDAD6</color>
+    <color name="colorOutline">#89938C</color>
+    <color name="colorOutlineVariant">#404944</color>
+
+    <color name="colorSurface">#0F0F0E</color>
+    <color name="colorOnSurface">#E5E3E3</color>
+    <color name="colorOnSurfaceVariant">#BFC9C2</color>
+    <color name="colorOnSurfaceInverse">#202020</color>
+    <color name="colorSurfaceInverse">#C5C3C3</color>
+    <color name="colorSurfaceBright">#3D3D3D</color>
+    <color name="colorSurfaceDim">#0F0F0E</color>
+    <color name="colorSurfaceContainer">#1F1F1F</color>
+    <color name="colorSurfaceContainerLow">#1A1A1A</color>
+    <color name="colorSurfaceContainerLowest">#090A0A</color>
+    <color name="colorSurfaceContainerHigh">#2A2B2B</color>
+    <color name="colorSurfaceContainerHighest">#383838</color>
 </resources>
