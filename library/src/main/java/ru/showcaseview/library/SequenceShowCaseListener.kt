@@ -1,4 +1,4 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
 
 /**
  * Created by jcampos on 11/09/2018.

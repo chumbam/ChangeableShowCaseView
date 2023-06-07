@@ -1,9 +1,10 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
 
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import java.lang.ref.WeakReference
 import java.util.ArrayList
@@ -12,7 +13,7 @@ import java.util.ArrayList
  * Created by jcampos on 04/09/2018.
  * Modified by chumbam on 06/06/2023
  */
-class BubbleShowCaseBuilder{
+class BubbleShowCaseBuilderV2 {
 
     internal var mActivity: WeakReference<Activity>? = null
     internal var mImage: Drawable? = null
@@ -22,16 +23,17 @@ class BubbleShowCaseBuilder{
     internal var mBackgroundColor: Int? = null
     internal var mTextColor: Int? = null
     internal var mTitleTextSize: Int? = null
+    internal var mSubtitleTextColor: Int? = null
     internal var mSubtitleTextSize: Int? = null
-    internal var mHighlightMode: BubbleShowCase.HighlightMode? = null
+    internal var mHighlightMode: BubbleShowCaseV2.HighlightMode? = null
     internal var mDisableTargetClick: Boolean = false
     internal var mDisableCloseAction: Boolean = false
     internal var mShowOnce: String? = null
     internal var mIsFirstOfSequence: Boolean? = null
     internal var mIsLastOfSequence: Boolean? = null
-    internal val mArrowPositionList = ArrayList<BubbleShowCase.ArrowPosition>()
+    internal val mArrowPositionList = ArrayList<BubbleShowCaseV2.ArrowPosition>()
     internal var mTargetView: WeakReference<View>? = null
-    internal var mBubbleShowCaseListener: BubbleShowCaseListener? = null
+    internal var mBubbleShowCaseListener: BubbleShowCaseListenerV2? = null
     internal var mSequenceShowCaseListener: SequenceShowCaseListener? = null
 
     private var onGlobalLayoutListenerTargetView: ViewTreeObserver.OnGlobalLayoutListener? = null
@@ -39,14 +41,14 @@ class BubbleShowCaseBuilder{
     /**
      * Builder constructor. It needs an instance of the current activity to convert it to a weak reference in order to avoid memory leaks
      */
-    constructor(activity: Activity){
+    constructor(activity: Activity) {
         mActivity = WeakReference(activity)
     }
 
     /**
      * Title of the BubbleShowCase. This text is bolded in the view.
      */
-    fun title(title: String): BubbleShowCaseBuilder {
+    fun title(title: String): BubbleShowCaseBuilderV2 {
         mTitle = title
         return this
     }
@@ -54,7 +56,7 @@ class BubbleShowCaseBuilder{
     /**
      * Additional description of the BubbleShowCase. This text has a regular format
      */
-    fun description(subtitle: String): BubbleShowCaseBuilder {
+    fun description(subtitle: String): BubbleShowCaseBuilderV2 {
         mSubtitle = subtitle
         return this
     }
@@ -63,7 +65,7 @@ class BubbleShowCaseBuilder{
      * Image drawable to inserted as main image in the BubbleShowCase
      *  - If this param is not passed, the BubbleShowCase will not have main image
      */
-    fun image(image: Drawable): BubbleShowCaseBuilder {
+    fun image(image: Drawable): BubbleShowCaseBuilderV2 {
         mImage = image
         return this
     }
@@ -72,7 +74,7 @@ class BubbleShowCaseBuilder{
      * Image resource id to insert the corresponding drawable as main image in the BubbleShowCase
      *  - If this param is not passed, the BubbleShowCase will not have main image
      */
-    fun imageResourceId(resId: Int): BubbleShowCaseBuilder {
+    fun imageResourceId(resId: Int): BubbleShowCaseBuilderV2 {
         mImage = ContextCompat.getDrawable(mActivity!!.get()?.applicationContext!!, resId)
         return this
     }
@@ -81,7 +83,7 @@ class BubbleShowCaseBuilder{
      * Image drawable to be inserted as close icon in the BubbleShowCase.
      *  - If this param is not defined, a default close icon is displayed
      */
-    fun closeActionImage(image: Drawable?): BubbleShowCaseBuilder {
+    fun closeActionImage(image: Drawable?): BubbleShowCaseBuilderV2 {
         mCloseAction = image
         return this
     }
@@ -90,7 +92,7 @@ class BubbleShowCaseBuilder{
      * Image resource id to insert the corresponding drawable as close icon in the BubbleShowCase.
      *  - If this param is not defined, a default close icon is displayed
      */
-    fun closeActionImageResourceId(resId: Int): BubbleShowCaseBuilder {
+    fun closeActionImageResourceId(resId: Int): BubbleShowCaseBuilderV2 {
         mCloseAction = ContextCompat.getDrawable(mActivity!!.get()?.applicationContext!!, resId)
         return this
     }
@@ -100,7 +102,7 @@ class BubbleShowCaseBuilder{
      * Background color of the BubbleShowCase.
      *  - #3F51B5 color will be set if this param is not defined
      */
-    fun backgroundColor(color: Int): BubbleShowCaseBuilder {
+    fun backgroundColor(color: Int): BubbleShowCaseBuilderV2 {
         mBackgroundColor = color
         return this
     }
@@ -109,8 +111,9 @@ class BubbleShowCaseBuilder{
      * Background color of the BubbleShowCase.
      *  - #3F51B5 color will be set if this param is not defined
      */
-    fun backgroundColorResourceId(colorResId: Int): BubbleShowCaseBuilder {
-        mBackgroundColor = ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
+    fun backgroundColorResourceId(colorResId: Int): BubbleShowCaseBuilderV2 {
+        mBackgroundColor =
+            ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
         return this
     }
 
@@ -118,7 +121,7 @@ class BubbleShowCaseBuilder{
      * Text color of the BubbleShowCase.
      *  - White color will be set if this param is not defined
      */
-    fun textColor(color: Int): BubbleShowCaseBuilder {
+    fun textColor(color: Int): BubbleShowCaseBuilderV2 {
         mTextColor = color
         return this
     }
@@ -127,7 +130,7 @@ class BubbleShowCaseBuilder{
      * Text color of the BubbleShowCase.
      *  - White color will be set if this param is not defined
      */
-    fun textColorResourceId(colorResId: Int): BubbleShowCaseBuilder {
+    fun textColorResourceId(colorResId: Int): BubbleShowCaseBuilderV2 {
         mTextColor = ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
         return this
     }
@@ -136,8 +139,19 @@ class BubbleShowCaseBuilder{
      * Title text size in SP.
      * - Default value -> 16 sp
      */
-    fun titleTextSize(textSize: Int): BubbleShowCaseBuilder {
+    fun titleTextSize(textSize: Int): BubbleShowCaseBuilderV2 {
         mTitleTextSize = textSize
+        return this
+    }
+
+    fun descriptionTextColor(color: Int): BubbleShowCaseBuilderV2 {
+        mTextColor = color
+        return this
+    }
+
+    fun descriptionTextColorResourceId(@ColorRes colorResId: Int): BubbleShowCaseBuilderV2 {
+        mSubtitleTextColor =
+            ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
         return this
     }
 
@@ -145,7 +159,7 @@ class BubbleShowCaseBuilder{
      * Description text size in SP.
      * - Default value -> 14 sp
      */
-    fun descriptionTextSize(textSize: Int): BubbleShowCaseBuilder {
+    fun descriptionTextSize(textSize: Int): BubbleShowCaseBuilderV2 {
         mSubtitleTextSize = textSize
         return this
     }
@@ -154,7 +168,7 @@ class BubbleShowCaseBuilder{
      * If an unique id is passed in this function, this BubbleShowCase will only be showed once
      * - ID to identify the BubbleShowCase
      */
-    fun showOnce(id: String): BubbleShowCaseBuilder {
+    fun showOnce(id: String): BubbleShowCaseBuilderV2 {
         mShowOnce = id
         return this
     }
@@ -163,7 +177,7 @@ class BubbleShowCaseBuilder{
      * Target view to be highlighted. Set a TargetView is essential to figure out BubbleShowCase position
      * - If a target view is not defined, the BubbleShowCase final position will be the center of the screen
      */
-    fun targetView(targetView: View): BubbleShowCaseBuilder {
+    fun targetView(targetView: View): BubbleShowCaseBuilderV2 {
         mTargetView = WeakReference(targetView)
         return this
     }
@@ -172,7 +186,7 @@ class BubbleShowCaseBuilder{
      * If this variable is true, when user clicks on the target, the showcase will not be dismissed
      *  Default value -> false
      */
-    fun disableTargetClick(isDisabled: Boolean): BubbleShowCaseBuilder {
+    fun disableTargetClick(isDisabled: Boolean): BubbleShowCaseBuilderV2 {
         mDisableTargetClick = isDisabled
         return this
     }
@@ -181,7 +195,7 @@ class BubbleShowCaseBuilder{
      * If this variable is true, close action button will be gone
      *  Default value -> false
      */
-    fun disableCloseAction(isDisabled: Boolean): BubbleShowCaseBuilder {
+    fun disableCloseAction(isDisabled: Boolean): BubbleShowCaseBuilderV2 {
         mDisableCloseAction = isDisabled
         return this
     }
@@ -191,7 +205,7 @@ class BubbleShowCaseBuilder{
      * - ArrowPosition enum values: LEFT, RIGHT, TOP and DOWN
      * - If an arrow position is not defined, the BubbleShowCase will be set in a default position depending on the targetView
      */
-    fun arrowPosition(arrowPosition: BubbleShowCase.ArrowPosition): BubbleShowCaseBuilder {
+    fun arrowPosition(arrowPosition: BubbleShowCaseV2.ArrowPosition): BubbleShowCaseBuilderV2 {
         mArrowPositionList.clear()
         mArrowPositionList.add(arrowPosition)
         return this
@@ -202,7 +216,7 @@ class BubbleShowCaseBuilder{
      * - ArrowPosition enum values: LEFT, RIGHT, TOP and DOWN
      * - If the number of arrow positions is 0 or more than 1, BubbleShowCase will be set on the center of the screen
      */
-    fun arrowPosition(arrowPosition: List<BubbleShowCase.ArrowPosition>): BubbleShowCaseBuilder {
+    fun arrowPosition(arrowPosition: List<BubbleShowCaseV2.ArrowPosition>): BubbleShowCaseBuilderV2 {
         mArrowPositionList.clear()
         mArrowPositionList.addAll(arrowPosition)
         return this
@@ -213,7 +227,7 @@ class BubbleShowCaseBuilder{
      * - VIEW_LAYOUT: Default value. All the view box is highlighted (the rectangle where the view is contained). Example: For a TextView, all the element is highlighted (characters and background)
      * - VIEW_SURFACE: Only the view surface is highlighted, but not the background. Example: For a TextView, only the characters will be highlighted
      */
-    fun highlightMode(highlightMode: BubbleShowCase.HighlightMode): BubbleShowCaseBuilder {
+    fun highlightMode(highlightMode: BubbleShowCaseV2.HighlightMode): BubbleShowCaseBuilderV2 {
         mHighlightMode = highlightMode
         return this
     }
@@ -223,7 +237,7 @@ class BubbleShowCaseBuilder{
      * - onTargetClick -> It is triggered when the user clicks on the target view
      * - onCloseClick -> It is triggered when the user clicks on the close icon
      */
-    fun listener(bubbleShowCaseListener: BubbleShowCaseListener): BubbleShowCaseBuilder {
+    fun listener(bubbleShowCaseListener: BubbleShowCaseListenerV2): BubbleShowCaseBuilderV2 {
         mBubbleShowCaseListener = bubbleShowCaseListener
         return this
     }
@@ -231,17 +245,17 @@ class BubbleShowCaseBuilder{
     /**
      * Add a sequence listener in order to know when a BubbleShowCase has been dismissed to show another one
      */
-    internal fun sequenceListener(sequenceShowCaseListener: SequenceShowCaseListener): BubbleShowCaseBuilder {
+    internal fun sequenceListener(sequenceShowCaseListener: SequenceShowCaseListener): BubbleShowCaseBuilderV2 {
         mSequenceShowCaseListener = sequenceShowCaseListener
         return this
     }
 
-    internal fun isFirstOfSequence(isFirst: Boolean): BubbleShowCaseBuilder {
+    internal fun isFirstOfSequence(isFirst: Boolean): BubbleShowCaseBuilderV2 {
         mIsFirstOfSequence = isFirst
         return this
     }
 
-    internal fun isLastOfSequence(isLast: Boolean): BubbleShowCaseBuilder {
+    internal fun isLastOfSequence(isLast: Boolean): BubbleShowCaseBuilderV2 {
         mIsLastOfSequence = isLast
         return this
     }
@@ -249,19 +263,19 @@ class BubbleShowCaseBuilder{
     /**
      * Build the BubbleShowCase object from the builder one
      */
-    private fun build(): BubbleShowCase {
-        if(mIsFirstOfSequence ==null)
+    private fun build(): BubbleShowCaseV2 {
+        if (mIsFirstOfSequence == null)
             mIsFirstOfSequence = true
-        if(mIsLastOfSequence ==null)
+        if (mIsLastOfSequence == null)
             mIsLastOfSequence = true
 
-        return BubbleShowCase(this)
+        return BubbleShowCaseV2(this)
     }
 
     /**
      * Show the BubbleShowCase using the params added previously
      */
-    fun show(): BubbleShowCase {
+    fun show(): BubbleShowCaseV2 {
         val bubbleShowCase = build()
         if (mTargetView != null) {
             val targetView = mTargetView!!.get()
@@ -269,9 +283,13 @@ class BubbleShowCaseBuilder{
                 //If the view is not already painted, we wait for it waiting for view changes using OnGlobalLayoutListener
                 onGlobalLayoutListenerTargetView = ViewTreeObserver.OnGlobalLayoutListener {
                     bubbleShowCase.show()
-                    targetView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListenerTargetView)
+                    targetView.viewTreeObserver.removeOnGlobalLayoutListener(
+                        onGlobalLayoutListenerTargetView
+                    )
                 }
-                targetView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListenerTargetView)
+                targetView.viewTreeObserver.addOnGlobalLayoutListener(
+                    onGlobalLayoutListenerTargetView
+                )
             } else {
                 bubbleShowCase.show()
             }
