@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             .backgroundColor(ContextCompat.getColor(this, R.color.colorSurfaceContainerHigh))
             .titleTextSize(18)
             .textColorResourceId(R.color.colorOnSurface)
+            .nextButtonColorResourceId(R.color.red_C02E2E)
             .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
             .descriptionTextSize(16)
             .closeActionImage(null)

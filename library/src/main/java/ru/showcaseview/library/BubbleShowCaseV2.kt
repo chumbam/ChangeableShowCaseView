@@ -59,6 +59,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
     private val mTitle: String? = builder.mTitle
     private val mSubtitle: String? = builder.mSubtitle
     private val mNextButtonTitle: String? = builder.mNextButtonTitle
+    private val mNextButtonColor: Int? = builder.mNextButtonColor
     private val mCloseAction: Drawable? = builder.mCloseAction
     private val mBackgroundColor: Int? = builder.mBackgroundColor
     private val mTextColor: Int? = builder.mTextColor
@@ -206,6 +207,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
             .title(mTitle)
             .subtitle(mSubtitle)
             .nextButtonTitle(mNextButtonTitle)
+            .setNextButtonColor(mNextButtonColor)
             .image(mImage)
             .closeActionImage(mCloseAction)
             .disableCloseAction(mDisableCloseAction)

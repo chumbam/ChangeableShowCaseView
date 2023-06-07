@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import me.relex.circleindicator.CircleIndicator
@@ -82,6 +83,9 @@ class BubbleMessageViewV2 : ConstraintLayout {
         }
         builder.mNextButtonTitle?.let {
             nextButton?.text = builder.mNextButtonTitle
+        }
+        builder.mNextButtonColor?.let {
+            nextButton?.setTextColor(builder.mNextButtonColor!!)
         }
         builder.mTextColor?.let {
             textViewTitle?.setTextColor(builder.mTextColor!!)
@@ -287,6 +291,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
         var mTitle: String? = null
         var mSubtitle: String? = null
         var mNextButtonTitle: String? = null
+        var mNextButtonColor: Int? = null
         var mCloseAction: Drawable? = null
         var mBackgroundColor: Int? = null
         var mTextColor: Int? = null
@@ -315,6 +320,11 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         fun nextButtonTitle(btnTitle: String?): Builder {
             mNextButtonTitle = btnTitle
+            return this
+        }
+
+        fun setNextButtonColor(color: Int?): Builder {
+            mNextButtonColor = color
             return this
         }
 
