@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         return BubbleShowCaseBuilderV2(this)
             .title("Welcome!!!")
             .description("This is a simple BubbleShowCase with default values.")
+            .addIndicator(3, 0)
             .targetView(binding.buttonSimpleShowCase)
+
     }
 
     private fun getCustomColorShowCaseBuilder(): BubbleShowCaseBuilderV2 {
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                     com.google.android.material.R.drawable.ic_clock_black_24dp
                 )!!
             )
+            .addIndicator(3, 1)
             .textColorResourceId(R.color.colorOnSurface)
             .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
             .nextButtonTextTitle("Привет")

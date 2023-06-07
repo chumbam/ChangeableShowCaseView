@@ -65,6 +65,8 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
     private val mTitleTextSize: Int? = builder.mTitleTextSize
     private val mSubtitleTextColor: Int? = builder.mSubtitleTextColor
     private val mSubtitleTextSize: Int? = builder.mSubtitleTextSize
+    private val mIndicatorCount: Int? = builder.mIndicatorCount
+    private val mIndicatorSelected: Int? = builder.mIndicatorSelected
     private val mShowOnce: String? = builder.mShowOnce
     private val mDisableTargetClick: Boolean = builder.mDisableTargetClick
     private val mDisableCloseAction: Boolean = builder.mDisableCloseAction
@@ -200,6 +202,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
             .subtitleTexteColor(mSubtitleTextColor)
             .titleTextSize(mTitleTextSize)
             .subtitleTextSize(mSubtitleTextSize)
+            .setIndicatorCountAndSelectedItem(mIndicatorCount,mIndicatorSelected)
             .title(mTitle)
             .subtitle(mSubtitle)
             .nextButtonTitle(mNextButtonTitle)

@@ -26,6 +26,8 @@ class BubbleShowCaseBuilderV2 {
     internal var mTitleTextSize: Int? = null
     internal var mSubtitleTextColor: Int? = null
     internal var mSubtitleTextSize: Int? = null
+    internal var mIndicatorCount: Int? = null
+    internal var mIndicatorSelected: Int? = null
     internal var mHighlightMode: BubbleShowCaseV2.HighlightMode? = null
     internal var mDisableTargetClick: Boolean = false
     internal var mDisableCloseAction: Boolean = false
@@ -167,6 +169,12 @@ class BubbleShowCaseBuilderV2 {
      */
     fun descriptionTextSize(textSize: Int): BubbleShowCaseBuilderV2 {
         mSubtitleTextSize = textSize
+        return this
+    }
+
+    fun addIndicator(itemsCount: Int, itemSelected: Int): BubbleShowCaseBuilderV2 {
+        mIndicatorCount = itemsCount
+        mIndicatorSelected = itemSelected
         return this
     }
 

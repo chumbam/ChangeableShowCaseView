@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import me.relex.circleindicator.CircleIndicator
 import java.lang.ref.WeakReference
 
 import java.util.ArrayList
@@ -30,6 +31,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
     private var textViewSubtitle: TextView? = null
     private var showCaseMessageViewLayout: ConstraintLayout? = null
     private var nextButton: TextView? = null
+    private var progressIndicator: CircleIndicator? = null
     private var targetViewScreenLocation: RectF? = null
     private var mBackgroundColor: Int = ContextCompat.getColor(context, R.color.blue_default)
     private var arrowPositionList = ArrayList<BubbleShowCaseV2.ArrowPosition>()
@@ -66,6 +68,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
         textViewSubtitle = findViewById(R.id.textViewShowCaseText)
         showCaseMessageViewLayout = findViewById(R.id.showCaseMessageViewLayout)
         nextButton = findViewById(R.id.nextButton)
+        progressIndicator = findViewById(R.id.indicator)
     }
 
     private fun setAttributes(builder: Builder) {
@@ -92,6 +95,12 @@ class BubbleMessageViewV2 : ConstraintLayout {
                 TypedValue.COMPLEX_UNIT_SP,
                 builder.mTitleTextSize!!.toFloat()
             )
+        }
+        builder.mIndicatorCount?.let { indicatorCount ->
+            builder.mSelectedIndicator?.let { selectedIndicator ->
+                progressIndicator?.visibility = View.VISIBLE
+                progressIndicator?.createIndicators(indicatorCount, selectedIndicator)
+            }
         }
         builder.mSubtitleTextSize?.let {
             textViewSubtitle?.setTextSize(
@@ -284,6 +293,8 @@ class BubbleMessageViewV2 : ConstraintLayout {
         var mSubtitleTextColor: Int? = null
         var mTitleTextSize: Int? = null
         var mSubtitleTextSize: Int? = null
+        var mIndicatorCount: Int? = null
+        var mSelectedIndicator: Int? = null
         var mArrowPosition = ArrayList<BubbleShowCaseV2.ArrowPosition>()
         var mListener: OnBubbleMessageViewListener? = null
 
@@ -349,6 +360,12 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         fun subtitleTextSize(textSize: Int?): Builder {
             mSubtitleTextSize = textSize
+            return this
+        }
+
+        fun setIndicatorCountAndSelectedItem(indicatorCount: Int?, selectedItem: Int?): Builder {
+            mIndicatorCount = indicatorCount
+            mSelectedIndicator = selectedItem
             return this
         }
 
