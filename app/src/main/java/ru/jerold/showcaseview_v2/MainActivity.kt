@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             )
             .textColorResourceId(R.color.colorOnSurface)
             .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
+            .nextButtonTextTitle("Привет")
             .targetView(binding.buttonColorShowCase)
     }
 
@@ -60,8 +61,10 @@ class MainActivity : AppCompatActivity() {
         return BubbleShowCaseBuilderV2(this)
             .title("Change text sizes!")
             .description("You can also choose the best text size for you.")
-            .backgroundColor(ContextCompat.getColor(this, R.color.background_black))
+            .backgroundColor(ContextCompat.getColor(this, R.color.colorSurfaceContainerHigh))
             .titleTextSize(18)
+            .textColorResourceId(R.color.colorOnSurface)
+            .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
             .descriptionTextSize(16)
             .closeActionImage(null)
             .targetView(binding.buttonTextSizeShowCase)
@@ -72,7 +75,9 @@ class MainActivity : AppCompatActivity() {
             .title("Force the position of the bubble!")
             .description("You only have to specify in which side you want the arrow, and the bubble will be located depending on it.")
             .arrowPosition(BubbleShowCaseV2.ArrowPosition.LEFT)
-            .backgroundColor(ContextCompat.getColor(this, R.color.red_C02E2E))
+            .backgroundColor(ContextCompat.getColor(this, R.color.colorSurfaceContainerHigh))
+            .textColorResourceId(R.color.colorOnSurface)
+            .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
             .targetView(binding.buttonArrowLeftShowCase)
     }
 
@@ -80,7 +85,9 @@ class MainActivity : AppCompatActivity() {
         return BubbleShowCaseBuilderV2(this)
             .title("Arrow set on right side this time :)")
             .arrowPosition(BubbleShowCaseV2.ArrowPosition.RIGHT)
-            .backgroundColor(ContextCompat.getColor(this, R.color.pink_FCADC0))
+            .backgroundColor(ContextCompat.getColor(this, R.color.colorSurfaceContainerHigh))
+            .textColorResourceId(R.color.colorOnSurface)
+            .descriptionTextColorResourceId(R.color.colorOnSurfaceVariant)
             .targetView(binding.buttonArrowRightShowCase)
     }
 

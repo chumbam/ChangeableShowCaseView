@@ -77,6 +77,9 @@ class BubbleMessageViewV2 : ConstraintLayout {
             textViewSubtitle?.visibility = View.VISIBLE
             textViewSubtitle?.text = builder.mSubtitle
         }
+        builder.mNextButtonTitle?.let {
+            nextButton?.text = builder.mNextButtonTitle
+        }
         builder.mTextColor?.let {
             textViewTitle?.setTextColor(builder.mTextColor!!)
 
@@ -274,6 +277,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
         var mDisableCloseAction: Boolean? = null
         var mTitle: String? = null
         var mSubtitle: String? = null
+        var mNextButtonTitle: String? = null
         var mCloseAction: Drawable? = null
         var mBackgroundColor: Int? = null
         var mTextColor: Int? = null
@@ -295,6 +299,11 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         fun subtitle(subtitle: String?): Builder {
             mSubtitle = subtitle
+            return this
+        }
+
+        fun nextButtonTitle(btnTitle: String?): Builder {
+            mNextButtonTitle = btnTitle
             return this
         }
 

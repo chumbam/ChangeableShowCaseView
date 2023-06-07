@@ -19,6 +19,7 @@ class BubbleShowCaseBuilderV2 {
     internal var mImage: Drawable? = null
     internal var mTitle: String? = null
     internal var mSubtitle: String? = null
+    internal var mNextButtonTitle: String? = null
     internal var mCloseAction: Drawable? = null
     internal var mBackgroundColor: Int? = null
     internal var mTextColor: Int? = null
@@ -58,6 +59,11 @@ class BubbleShowCaseBuilderV2 {
      */
     fun description(subtitle: String): BubbleShowCaseBuilderV2 {
         mSubtitle = subtitle
+        return this
+    }
+
+    fun nextButtonTextTitle(btnTitle: String): BubbleShowCaseBuilderV2 {
+        mNextButtonTitle = btnTitle
         return this
     }
 

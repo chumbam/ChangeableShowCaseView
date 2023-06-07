@@ -58,6 +58,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
     private val mImage: Drawable? = builder.mImage
     private val mTitle: String? = builder.mTitle
     private val mSubtitle: String? = builder.mSubtitle
+    private val mNextButtonTitle: String? = builder.mNextButtonTitle
     private val mCloseAction: Drawable? = builder.mCloseAction
     private val mBackgroundColor: Int? = builder.mBackgroundColor
     private val mTextColor: Int? = builder.mTextColor
@@ -201,6 +202,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
             .subtitleTextSize(mSubtitleTextSize)
             .title(mTitle)
             .subtitle(mSubtitle)
+            .nextButtonTitle(mNextButtonTitle)
             .image(mImage)
             .closeActionImage(mCloseAction)
             .disableCloseAction(mDisableCloseAction)
@@ -526,6 +528,6 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
         ) else availableSpace
     }
 
-        private fun isTablet(): Boolean = mActivity.get()!!.resources.getBoolean(R.bool.isTablet)
+    private fun isTablet(): Boolean = mActivity.get()!!.resources.getBoolean(R.bool.isTablet)
 
 }
