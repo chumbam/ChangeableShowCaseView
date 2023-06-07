@@ -1,6 +1,8 @@
 plugins {
-    id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.android.library")
+    id("kotlin-android")
+    id("maven-publish")
 }
 
 android {
@@ -31,6 +33,35 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    publishing {
+        multipleVariants {
+            allVariants()
+            withJavadocJar()
+            withSourcesJar()
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("mavenRelease") {
+                groupId = "ru.showcaseview"
+                artifactId = "showcaseview"
+                version = "1.0"
+
+                from(components["release"])
+            }
+            create<MavenPublication>("mavenDebug") {
+                groupId = "ru.showcaseview"
+                artifactId = "showcaseview"
+                version = "1.0"
+
+                from(components["debug"])
+            }
+        }
+    }
 }
 
 dependencies {
@@ -44,3 +75,5 @@ dependencies {
 
     implementation("me.relex:circleindicator:2.1.6")
 }
+
+
