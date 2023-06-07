@@ -1,4 +1,4 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,14 +9,11 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import ru.jerold.showcaseview_v2.R
+import me.relex.circleindicator.CircleIndicator
 import java.lang.ref.WeakReference
-
-import java.util.ArrayList
 
 /**
  * Created by chumbam on 06/06/2023
@@ -32,10 +29,11 @@ class BubbleMessageViewV2 : ConstraintLayout {
     private var textViewSubtitle: TextView? = null
     private var showCaseMessageViewLayout: ConstraintLayout? = null
     private var nextButton: TextView? = null
-
+    private var actionButton: TextView? = null
+    private var progressIndicator: CircleIndicator? = null
     private var targetViewScreenLocation: RectF? = null
     private var mBackgroundColor: Int = ContextCompat.getColor(context, R.color.blue_default)
-    private var arrowPositionList = ArrayList<BubbleShowCase.ArrowPosition>()
+    private var arrowPositionList = ArrayList<BubbleShowCaseV2.ArrowPosition>()
 
     private var paint: Paint? = null
 
@@ -69,10 +67,11 @@ class BubbleMessageViewV2 : ConstraintLayout {
         textViewSubtitle = findViewById(R.id.textViewShowCaseText)
         showCaseMessageViewLayout = findViewById(R.id.showCaseMessageViewLayout)
         nextButton = findViewById(R.id.nextButton)
+        actionButton = findViewById(R.id.actionButton)
+        progressIndicator = findViewById(R.id.indicator)
     }
 
     private fun setAttributes(builder: Builder) {
-
         builder.mTitle?.let {
             textViewTitle?.visibility = View.VISIBLE
             textViewTitle?.text = builder.mTitle
@@ -81,15 +80,37 @@ class BubbleMessageViewV2 : ConstraintLayout {
             textViewSubtitle?.visibility = View.VISIBLE
             textViewSubtitle?.text = builder.mSubtitle
         }
+        builder.mNextButtonTitle?.let {
+            nextButton?.text = builder.mNextButtonTitle
+        }
+        builder.mNextButtonColor?.let {
+            nextButton?.setTextColor(builder.mNextButtonColor!!)
+        }
+        builder.mActionButtonTitle?.let {
+            actionButton?.visibility = View.VISIBLE
+            actionButton?.text = builder.mActionButtonTitle
+        }
+        builder.mActionButtonColor?.let {
+            actionButton?.setTextColor(builder.mActionButtonColor!!)
+        }
         builder.mTextColor?.let {
             textViewTitle?.setTextColor(builder.mTextColor!!)
-            textViewSubtitle?.setTextColor(builder.mTextColor!!)
+
+        }
+        builder.mSubtitleTextColor?.let {
+            textViewSubtitle?.setTextColor(builder.mSubtitleTextColor!!)
         }
         builder.mTitleTextSize?.let {
             textViewTitle?.setTextSize(
                 TypedValue.COMPLEX_UNIT_SP,
                 builder.mTitleTextSize!!.toFloat()
             )
+        }
+        builder.mIndicatorCount?.let { indicatorCount ->
+            builder.mSelectedIndicator?.let { selectedIndicator ->
+                progressIndicator?.visibility = View.VISIBLE
+                progressIndicator?.createIndicators(indicatorCount, selectedIndicator)
+            }
         }
         builder.mSubtitleTextSize?.let {
             textViewSubtitle?.setTextSize(
@@ -104,6 +125,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
     private fun setBubbleListener(builder: Builder) {
         nextButton?.setOnClickListener { builder.mListener?.onCloseActionImageClick() }
+        actionButton?.setOnClickListener { builder.mListener?.onActionClick() }
         itemView?.setOnClickListener { builder.mListener?.onBubbleClick() }
     }
 
@@ -146,42 +168,42 @@ class BubbleMessageViewV2 : ConstraintLayout {
             getMargin().toFloat(),
             getMargin().toFloat(),
             getViewWidth() - getMargin().toFloat(),
-            height - getMargin().toFloat()
+            height.toFloat()
         )
-        canvas.drawRoundRect(rect, 10f, 10f, paint!!)
+        canvas.drawRoundRect(rect, 16f, 16f, paint!!)
     }
 
     private fun drawArrow(
         canvas: Canvas,
-        arrowPosition: BubbleShowCase.ArrowPosition,
+        arrowPosition: BubbleShowCaseV2.ArrowPosition,
         targetViewLocationOnScreen: RectF?
     ) {
         val xPosition: Int
         val yPosition: Int
 
         when (arrowPosition) {
-            BubbleShowCase.ArrowPosition.LEFT -> {
+            BubbleShowCaseV2.ArrowPosition.LEFT -> {
                 xPosition = getMargin()
                 yPosition =
                     if (targetViewLocationOnScreen != null) getArrowVerticalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else height / 2
             }
-            BubbleShowCase.ArrowPosition.RIGHT -> {
+            BubbleShowCaseV2.ArrowPosition.RIGHT -> {
                 xPosition = getViewWidth() - getMargin()
                 yPosition =
                     if (targetViewLocationOnScreen != null) getArrowVerticalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else height / 2
             }
-            BubbleShowCase.ArrowPosition.TOP -> {
+            BubbleShowCaseV2.ArrowPosition.TOP -> {
                 xPosition =
                     if (targetViewLocationOnScreen != null) getArrowHorizontalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else width / 2
                 yPosition = getMargin()
             }
-            BubbleShowCase.ArrowPosition.BOTTOM -> {
+            BubbleShowCaseV2.ArrowPosition.BOTTOM -> {
                 xPosition =
                     if (targetViewLocationOnScreen != null) getArrowHorizontalPositionDependingOnTarget(
                         targetViewLocationOnScreen
@@ -275,12 +297,19 @@ class BubbleMessageViewV2 : ConstraintLayout {
         var mDisableCloseAction: Boolean? = null
         var mTitle: String? = null
         var mSubtitle: String? = null
+        var mNextButtonTitle: String? = null
+        var mNextButtonColor: Int? = null
+        var mActionButtonTitle: String? = null
+        var mActionButtonColor: Int? = null
         var mCloseAction: Drawable? = null
         var mBackgroundColor: Int? = null
         var mTextColor: Int? = null
+        var mSubtitleTextColor: Int? = null
         var mTitleTextSize: Int? = null
         var mSubtitleTextSize: Int? = null
-        var mArrowPosition = ArrayList<BubbleShowCase.ArrowPosition>()
+        var mIndicatorCount: Int? = null
+        var mSelectedIndicator: Int? = null
+        var mArrowPosition = ArrayList<BubbleShowCaseV2.ArrowPosition>()
         var mListener: OnBubbleMessageViewListener? = null
 
         fun from(context: Context): Builder {
@@ -295,6 +324,26 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         fun subtitle(subtitle: String?): Builder {
             mSubtitle = subtitle
+            return this
+        }
+
+        fun nextButtonTitle(btnTitle: String?): Builder {
+            mNextButtonTitle = btnTitle
+            return this
+        }
+
+        fun setNextButtonColor(color: Int?): Builder {
+            mNextButtonColor = color
+            return this
+        }
+
+        fun actionButtonTitle(btnTitle: String?): Builder {
+            mActionButtonTitle = btnTitle
+            return this
+        }
+
+        fun setActionButtonColor(color: Int?): Builder {
+            mActionButtonColor = color
             return this
         }
 
@@ -328,6 +377,11 @@ class BubbleMessageViewV2 : ConstraintLayout {
             return this
         }
 
+        fun subtitleTexteColor(textColor: Int?): Builder {
+            mSubtitleTextColor = textColor
+            return this
+        }
+
         fun titleTextSize(textSize: Int?): Builder {
             mTitleTextSize = textSize
             return this
@@ -338,7 +392,13 @@ class BubbleMessageViewV2 : ConstraintLayout {
             return this
         }
 
-        fun arrowPosition(arrowPosition: List<BubbleShowCase.ArrowPosition>): Builder {
+        fun setIndicatorCountAndSelectedItem(indicatorCount: Int?, selectedItem: Int?): Builder {
+            mIndicatorCount = indicatorCount
+            mSelectedIndicator = selectedItem
+            return this
+        }
+
+        fun arrowPosition(arrowPosition: List<BubbleShowCaseV2.ArrowPosition>): Builder {
             mArrowPosition.clear()
             mArrowPosition.addAll(arrowPosition)
             return this

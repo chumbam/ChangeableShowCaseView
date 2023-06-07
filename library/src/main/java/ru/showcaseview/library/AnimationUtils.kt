@@ -1,4 +1,4 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder

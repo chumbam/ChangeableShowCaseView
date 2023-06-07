@@ -1,4 +1,4 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
 
 import android.app.Activity
 import android.graphics.drawable.Drawable

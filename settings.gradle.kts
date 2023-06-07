@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ShowCaseView_v2"
 include(":app")
+include(":library")

@@ -1,4 +1,5 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
+package ru.showcaseview.library
+
 
 import android.content.Context
 import android.graphics.Canvas
@@ -13,9 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import ru.jerold.showcaseview_v2.R
 import java.lang.ref.WeakReference
-
 import java.util.ArrayList
 
 /**
@@ -146,7 +145,7 @@ class BubbleMessageView : ConstraintLayout {
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint!!.color = mBackgroundColor
         paint!!.style = Paint.Style.FILL
-        paint!!.strokeWidth = 4.0f
+        paint!!.strokeWidth = 10.0f
     }
 
     private fun drawRectangle(canvas: Canvas) {

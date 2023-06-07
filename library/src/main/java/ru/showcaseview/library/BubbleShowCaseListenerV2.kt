@@ -1,6 +1,4 @@
-package ru.jerold.showcaseview_v2.bubbleshowcase
-
-import ru.jerold.showcaseview_v2.bubbleshowcase.BubbleShowCase
+package ru.showcaseview.library
 
 /**
  * Created by jcampos on 04/09/2018.
@@ -8,24 +6,26 @@ import ru.jerold.showcaseview_v2.bubbleshowcase.BubbleShowCase
  * Listener of user actions in a BubbleShowCase
  * Modified by chumbam on 06/06/2023
  */
-interface BubbleShowCaseListener {
+interface BubbleShowCaseListenerV2 {
     /**
      * It is called when the user clicks on the targetView
      */
-    fun onTargetClick(bubbleShowCase: BubbleShowCase)
+    fun onTargetClick(bubbleShowCase: BubbleShowCaseV2)
 
     /**
      * It is called when the user clicks on the close icon
      */
-    fun onCloseActionImageClick(bubbleShowCase: BubbleShowCase)
+    fun onCloseActionImageClick(bubbleShowCase: BubbleShowCaseV2)
 
     /**
      * It is called when the user clicks on the background dim
      */
-    fun onBackgroundDimClick(bubbleShowCase: BubbleShowCase)
+    fun onBackgroundDimClick(bubbleShowCase: BubbleShowCaseV2)
 
     /**
      * It is called when the user clicks on the bubble
      */
-    fun onBubbleClick(bubbleShowCase: BubbleShowCase)
+    fun onBubbleClick(bubbleShowCase: BubbleShowCaseV2)
+
+    fun onActionClick(bubbleShowCase: BubbleShowCaseV2)
 }
