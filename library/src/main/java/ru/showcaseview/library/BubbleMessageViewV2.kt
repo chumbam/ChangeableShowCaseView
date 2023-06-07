@@ -10,13 +10,10 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import me.relex.circleindicator.CircleIndicator
 import java.lang.ref.WeakReference
-
-import java.util.ArrayList
 
 /**
  * Created by chumbam on 06/06/2023
@@ -32,6 +29,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
     private var textViewSubtitle: TextView? = null
     private var showCaseMessageViewLayout: ConstraintLayout? = null
     private var nextButton: TextView? = null
+    private var actionButton: TextView? = null
     private var progressIndicator: CircleIndicator? = null
     private var targetViewScreenLocation: RectF? = null
     private var mBackgroundColor: Int = ContextCompat.getColor(context, R.color.blue_default)
@@ -69,6 +67,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
         textViewSubtitle = findViewById(R.id.textViewShowCaseText)
         showCaseMessageViewLayout = findViewById(R.id.showCaseMessageViewLayout)
         nextButton = findViewById(R.id.nextButton)
+        actionButton = findViewById(R.id.actionButton)
         progressIndicator = findViewById(R.id.indicator)
     }
 
@@ -86,6 +85,13 @@ class BubbleMessageViewV2 : ConstraintLayout {
         }
         builder.mNextButtonColor?.let {
             nextButton?.setTextColor(builder.mNextButtonColor!!)
+        }
+        builder.mActionButtonTitle?.let {
+            actionButton?.visibility = View.VISIBLE
+            actionButton?.text = builder.mActionButtonTitle
+        }
+        builder.mActionButtonColor?.let {
+            actionButton?.setTextColor(builder.mActionButtonColor!!)
         }
         builder.mTextColor?.let {
             textViewTitle?.setTextColor(builder.mTextColor!!)
@@ -119,6 +125,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
     private fun setBubbleListener(builder: Builder) {
         nextButton?.setOnClickListener { builder.mListener?.onCloseActionImageClick() }
+        actionButton?.setOnClickListener { builder.mListener?.onActionClick() }
         itemView?.setOnClickListener { builder.mListener?.onBubbleClick() }
     }
 
@@ -292,6 +299,8 @@ class BubbleMessageViewV2 : ConstraintLayout {
         var mSubtitle: String? = null
         var mNextButtonTitle: String? = null
         var mNextButtonColor: Int? = null
+        var mActionButtonTitle: String? = null
+        var mActionButtonColor: Int? = null
         var mCloseAction: Drawable? = null
         var mBackgroundColor: Int? = null
         var mTextColor: Int? = null
@@ -325,6 +334,16 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         fun setNextButtonColor(color: Int?): Builder {
             mNextButtonColor = color
+            return this
+        }
+
+        fun actionButtonTitle(btnTitle: String?): Builder {
+            mActionButtonTitle = btnTitle
+            return this
+        }
+
+        fun setActionButtonColor(color: Int?): Builder {
+            mActionButtonColor = color
             return this
         }
 

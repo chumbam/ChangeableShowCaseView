@@ -51,6 +51,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutTexts">
 
+        <TextView
+            android:id="@+id/actionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:breakStrategy="simple"
+            android:text="В настройки"
+            android:layout_marginEnd="36dp"
+            android:textColor="@color/green_14E0AE"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/nextButton"

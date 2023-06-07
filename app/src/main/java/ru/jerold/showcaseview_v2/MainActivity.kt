@@ -101,9 +101,16 @@ class MainActivity : AppCompatActivity() {
             .title("Listen user actions!")
             .description("You can detect when the user interacts with the different view elements to act consequently.")
             .backgroundColor(ContextCompat.getColor(this, R.color.green_01A47E))
+            .actionButtonTextTitle("иди отсюда")
+            .actionButtonColor(R.color.colorPrimary)
             .listener(object : BubbleShowCaseListenerV2 {
                 override fun onBubbleClick(bubbleShowCase: BubbleShowCaseV2) {
                     Toast.makeText(this@MainActivity, "OnBubbleClick", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onActionClick(bubbleShowCase: BubbleShowCaseV2) {
+                    Toast.makeText(this@MainActivity, "OnActionClick", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 override fun onBackgroundDimClick(bubbleShowCase: BubbleShowCaseV2) {

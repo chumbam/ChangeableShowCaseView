@@ -26,4 +26,6 @@ interface BubbleShowCaseListenerV2 {
      * It is called when the user clicks on the bubble
      */
     fun onBubbleClick(bubbleShowCase: BubbleShowCaseV2)
+
+    fun onActionClick(bubbleShowCase: BubbleShowCaseV2)
 }

@@ -15,4 +15,9 @@ interface OnBubbleMessageViewListener {
      * It is called when a user clicks the BubbleMessageView
      */
     fun onBubbleClick()
+
+    /**
+     * It is called when a user clicks the ActionButton first image
+     */
+    fun onActionClick()
 }

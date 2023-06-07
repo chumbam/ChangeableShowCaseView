@@ -21,6 +21,8 @@ class BubbleShowCaseBuilderV2 {
     internal var mSubtitle: String? = null
     internal var mNextButtonTitle: String? = null
     internal var mNextButtonColor: Int? = null
+    internal var mActionButtonTitle: String? = null
+    internal var mActionButtonColor: Int? = null
     internal var mCloseAction: Drawable? = null
     internal var mBackgroundColor: Int? = null
     internal var mTextColor: Int? = null
@@ -77,6 +79,22 @@ class BubbleShowCaseBuilderV2 {
 
     fun nextButtonColorResourceId(@ColorRes colorResId: Int): BubbleShowCaseBuilderV2 {
         mNextButtonColor =
+            ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
+        return this
+    }
+
+    fun actionButtonTextTitle(btnTitle: String): BubbleShowCaseBuilderV2 {
+        mActionButtonTitle = btnTitle
+        return this
+    }
+
+    fun actionButtonColor(color: Int): BubbleShowCaseBuilderV2 {
+        mActionButtonColor = color
+        return this
+    }
+
+    fun actionButtonColorResourceId(@ColorRes colorResId: Int): BubbleShowCaseBuilderV2 {
+        mActionButtonColor =
             ContextCompat.getColor(mActivity!!.get()?.applicationContext!!, colorResId)
         return this
     }
