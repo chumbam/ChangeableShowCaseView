@@ -168,7 +168,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
             getMargin().toFloat() * 2,
             getMargin().toFloat(),
             getViewWidth() - getMargin().toFloat(),
-            height.toFloat()
+            height.toFloat() - getMargin().toFloat()
         )
         canvas.drawRoundRect(rect, 16f, 16f, paint!!)
     }
@@ -208,7 +208,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
                     if (targetViewLocationOnScreen != null) getArrowHorizontalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else width / 2
-                yPosition = height - getMargin()
+                yPosition = height - getMargin()q
             }
         }
 

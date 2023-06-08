@@ -384,7 +384,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
                         if (isTablet()) getScreenWidth(mActivity.get()!!) - getXposition(targetView) - getMessageViewWidthOnTablet(
                             getScreenWidth(mActivity.get()!!) - getXposition(targetView)
                         ) else 0,
-                        getScreenHeight(mActivity.get()!!) - getYposition(targetView)
+                        getScreenHeight(mActivity.get()!!) - getYposition(targetView) + targetView.height / 3
                     )
                 } else {
                     showCaseParams.setMargins(
@@ -393,7 +393,7 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
                         ) else 0,
                         0,
                         if (isTablet()) getScreenWidth(mActivity.get()!!) - getXposition(targetView) - targetView.width else 0,
-                        getScreenHeight(mActivity.get()!!) - getYposition(targetView)
+                        getScreenHeight(mActivity.get()!!) - getYposition(targetView) + targetView.height / 3
                     )
                 }
             }
