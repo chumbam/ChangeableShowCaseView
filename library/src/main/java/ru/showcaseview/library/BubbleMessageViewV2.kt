@@ -208,7 +208,7 @@ class BubbleMessageViewV2 : ConstraintLayout {
                     if (targetViewLocationOnScreen != null) getArrowHorizontalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else width / 2
-                yPosition = height - getMargin()q
+                yPosition = height - getMargin()
             }
         }
 
