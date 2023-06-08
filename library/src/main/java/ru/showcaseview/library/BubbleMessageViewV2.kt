@@ -165,9 +165,9 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
     private fun drawRectangle(canvas: Canvas) {
         val rect = RectF(
+            getMargin().toFloat() * 2,
             getMargin().toFloat(),
-            getMargin().toFloat(),
-            getViewWidth() - getMargin().toFloat(),
+            getViewWidth() - getMargin().toFloat() * 2f,
             height.toFloat()
         )
         canvas.drawRoundRect(rect, 16f, 16f, paint!!)
@@ -183,14 +183,14 @@ class BubbleMessageViewV2 : ConstraintLayout {
 
         when (arrowPosition) {
             BubbleShowCaseV2.ArrowPosition.LEFT -> {
-                xPosition = getMargin()
+                xPosition = getMargin() * 2
                 yPosition =
                     if (targetViewLocationOnScreen != null) getArrowVerticalPositionDependingOnTarget(
                         targetViewLocationOnScreen
                     ) else height / 2
             }
             BubbleShowCaseV2.ArrowPosition.RIGHT -> {
-                xPosition = getViewWidth() - getMargin()
+                xPosition = getViewWidth() - getMargin() * 2
                 yPosition =
                     if (targetViewLocationOnScreen != null) getArrowVerticalPositionDependingOnTarget(
                         targetViewLocationOnScreen
