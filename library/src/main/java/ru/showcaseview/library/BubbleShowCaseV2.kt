@@ -12,6 +12,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -87,69 +88,134 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
     private var backgroundDimLayout: RelativeLayout? = null
     private var bubbleMessageViewBuilder: BubbleMessageViewV2.Builder? = null
 
-    fun show() {
-        if (mShowOnce != null) {
-            if (isBubbleShowCaseHasBeenShowedPreviously(mShowOnce)) {
-                notifyDismissToSequenceListener()
-                return
-            } else {
-                registerBubbleShowCaseInPreferences(mShowOnce)
-            }
-        }
-
-        val rootView = getViewRoot(mActivity.get()!!)
-        backgroundDimLayout = getBackgroundDimLayout()
-        setBackgroundDimListener(backgroundDimLayout)
-        bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
-
-        if (mTargetView != null && mArrowPositionList.size <= 1) {
-            //Wait until the end of the layout animation, to avoid problems with pending scrolls or view movements
-            val handler = Handler()
-            handler.postDelayed({
-                val target = mTargetView.get()!!
-                //If the arrow list is empty, the arrow position is set by default depending on the targetView position on the screen
-                if (mArrowPositionList.isEmpty()) {
-                    if (ScreenUtils.isViewLocatedAtHalfTopOfTheScreen(
-                            mActivity.get()!!,
-                            target
-                        )
-                    ) mArrowPositionList.add(
-                        ArrowPosition.TOP
-                    ) else mArrowPositionList.add(ArrowPosition.BOTTOM)
-                    bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
-                }
-
-                if (isVisibleOnScreen(target)) {
-                    addTargetViewAtBackgroundDimLayout(target, backgroundDimLayout)
-                    addBubbleMessageViewDependingOnTargetView(
-                        target,
-                        bubbleMessageViewBuilder!!,
-                        backgroundDimLayout
-                    )
-                } else {
-                    dismiss()
-                }
-            }, DURATION_BACKGROUND_ANIMATION.toLong())
+//    fun show() {
+//        if (mShowOnce != null) {
+//            if (isBubbleShowCaseHasBeenShowedPreviously(mShowOnce)) {
+//                notifyDismissToSequenceListener()
+//                return
+//            } else {
+//                registerBubbleShowCaseInPreferences(mShowOnce)
+//            }
+//        }
+//
+//        val rootView = getViewRoot(mActivity.get()!!)
+//        backgroundDimLayout = getBackgroundDimLayout()
+//        setBackgroundDimListener(backgroundDimLayout)
+//        bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
+//
+//        if (mTargetView != null && mArrowPositionList.size <= 1) {
+//            //Wait until the end of the layout animation, to avoid problems with pending scrolls or view movements
+//            val handler = Handler()
+//            handler.postDelayed({
+//                val target = mTargetView.get()!!
+//                //If the arrow list is empty, the arrow position is set by default depending on the targetView position on the screen
+//                if (mArrowPositionList.isEmpty()) {
+//                    if (ScreenUtils.isViewLocatedAtHalfTopOfTheScreen(
+//                            mActivity.get()!!,
+//                            target
+//                        )
+//                    ) mArrowPositionList.add(
+//                        ArrowPosition.TOP
+//                    ) else mArrowPositionList.add(ArrowPosition.BOTTOM)
+//                    bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
+//                }
+//
+//                if (isVisibleOnScreen(target)) {
+//                    addTargetViewAtBackgroundDimLayout(target, backgroundDimLayout)
+//                    addBubbleMessageViewDependingOnTargetView(
+//                        target,
+//                        bubbleMessageViewBuilder!!,
+//                        backgroundDimLayout
+//                    )
+//                } else {
+//                    dismiss()
+//                }
+//            }, DURATION_BACKGROUND_ANIMATION.toLong())
+//        } else {
+//            addBubbleMessageViewOnScreenCenter(bubbleMessageViewBuilder!!, backgroundDimLayout)
+//        }
+//        if (isFirstOfSequence) {
+//            //Add the background dim layout above the root view
+//            val animation = AnimationUtils.getFadeInAnimation(0, DURATION_BACKGROUND_ANIMATION)
+//
+//            backgroundDimLayout?.let {
+//                if (backgroundDimLayout!!.parent != null) {
+//                    (backgroundDimLayout!!.parent as ViewGroup).removeView(backgroundDimLayout)
+//                }
+//                rootView.addView(
+//                    AnimationUtils.setAnimationToView(
+//                        backgroundDimLayout!!,
+//                        animation
+//                    )
+//                )
+//            }
+//        }
+//    }
+fun show() {
+    if (mShowOnce != null) {
+        if (isBubbleShowCaseHasBeenShowedPreviously(mShowOnce)) {
+            notifyDismissToSequenceListener()
+            return
         } else {
-            addBubbleMessageViewOnScreenCenter(bubbleMessageViewBuilder!!, backgroundDimLayout)
-        }
-        if (isFirstOfSequence) {
-            //Add the background dim layout above the root view
-            val animation = AnimationUtils.getFadeInAnimation(0, DURATION_BACKGROUND_ANIMATION)
-
-            backgroundDimLayout?.let {
-                if (backgroundDimLayout!!.parent != null) {
-                    (backgroundDimLayout!!.parent as ViewGroup).removeView(backgroundDimLayout)
-                }
-                rootView.addView(
-                    AnimationUtils.setAnimationToView(
-                        backgroundDimLayout!!,
-                        animation
-                    )
-                )
-            }
+            registerBubbleShowCaseInPreferences(mShowOnce)
         }
     }
+
+    val rootView = getViewRoot(mActivity.get()!!)
+    backgroundDimLayout = getBackgroundDimLayout()
+    setBackgroundDimListener(backgroundDimLayout)
+    bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
+
+    val showcaseContainer = FrameLayout(mActivity.get()!!)
+
+    if (mTargetView != null && mArrowPositionList.size <= 1) {
+        val handler = Handler()
+        handler.postDelayed({
+            val target = mTargetView.get()!!
+            if (mArrowPositionList.isEmpty()) {
+                if (ScreenUtils.isViewLocatedAtHalfTopOfTheScreen(
+                        mActivity.get()!!,
+                        target
+                    )
+                ) mArrowPositionList.add(
+                    ArrowPosition.TOP
+                ) else mArrowPositionList.add(ArrowPosition.BOTTOM)
+                bubbleMessageViewBuilder = getBubbleMessageViewBuilder()
+            }
+
+            if (isVisibleOnScreen(target)) {
+                addTargetViewAtBackgroundDimLayout(target, backgroundDimLayout)
+                addBubbleMessageViewDependingOnTargetView(
+                    target,
+                    bubbleMessageViewBuilder!!,
+                    backgroundDimLayout
+                )
+            } else {
+                dismiss()
+            }
+        }, DURATION_BACKGROUND_ANIMATION.toLong())
+    } else {
+        addBubbleMessageViewOnScreenCenter(bubbleMessageViewBuilder!!, backgroundDimLayout)
+    }
+    if (isFirstOfSequence) {
+        val animation = AnimationUtils.getFadeInAnimation(0, DURATION_BACKGROUND_ANIMATION)
+
+        backgroundDimLayout?.let {
+            if (backgroundDimLayout!!.parent != null) {
+                (backgroundDimLayout!!.parent as ViewGroup).removeView(backgroundDimLayout)
+            }
+            showcaseContainer.addView(backgroundDimLayout)
+            rootView.addView(
+                AnimationUtils.setAnimationToView(
+                    showcaseContainer,
+                    animation
+                )
+            )
+        }
+    }
+}
+
+
 
     fun dismiss() {
         if (backgroundDimLayout != null && isLastOfSequence) {
