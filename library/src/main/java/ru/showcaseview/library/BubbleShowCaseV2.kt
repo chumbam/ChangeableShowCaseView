@@ -136,7 +136,11 @@ class BubbleShowCaseV2(builder: BubbleShowCaseBuilderV2) {
         if (isFirstOfSequence) {
             //Add the background dim layout above the root view
             val animation = AnimationUtils.getFadeInAnimation(0, DURATION_BACKGROUND_ANIMATION)
+
             backgroundDimLayout?.let {
+                if (backgroundDimLayout!!.parent != null) {
+                    (backgroundDimLayout!!.parent as ViewGroup).removeView(backgroundDimLayout)
+                }
                 rootView.addView(
                     AnimationUtils.setAnimationToView(
                         backgroundDimLayout!!,
